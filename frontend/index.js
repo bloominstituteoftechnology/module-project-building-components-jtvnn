@@ -4,7 +4,15 @@ function moduleProject3() {
 
   function buildNav(links) {
     //  ✨ do your magic here
-    return document.createElement('nav')
+    const container = document.createElement('nav');
+    links.forEach(link => {
+      let a = document.createElement('a');
+      a.href = link.href;
+      a.title = link.title;
+      a.textContent = link.textContent;
+      container.appendChild(a);
+    })
+    return container;
   }
 
   // ❗ DOM creation using your `buildNav` component (do not change):
@@ -20,6 +28,36 @@ function moduleProject3() {
 
   function buildLearnerCard(learner, languages) {
     //  ✨ do your magic here
+    const card = document.createElement('div');
+    card.classList.add('learner-card');
+    
+    const name = document.createElement('p');
+    name.textContent = learner.fullName;
+
+    const id = document.createElement('p');
+    id.textContent = `Learner ID: ${learner.id}`;
+
+    const dob = document.createElement('p');
+    dob.textContent = `Date of Birth: ${learner.dateOfBirth}`;
+
+    const favLang = document.createElement('p');
+    const favLanguage = languages.find(lang => lang.id === learner.favLanguage);
+    favLang.textContent = `Favorite Language: ${favLanguage.name}`;
+    
+    card.appendChild(name);
+    card.appendChild(id);
+    card.appendChild(dob);
+    card.appendChild(favLang);
+
+    card.addEventListener('click', evt => {
+      document.querySelectorAll('.learner-card').forEach(card => {
+        card.classList.remove('active');
+      })
+      card.classList.add('active');
+    })
+
+    return card;
+
   }
 
   {
@@ -40,6 +78,10 @@ function moduleProject3() {
       { id: 17, fullName: 'Daniel Castillo', dateOfBirth: '1995-11-05', favLanguage: 12 }
     ]
     //  ✨ do your magic here
+    learners.forEach((learner) => {
+      const learnerCard = buildLearnerCard(learner, languages);
+      document.querySelector('section').appendChild(learnerCard);
+    })
   }
 
   // 👉 TASK 3 - Write a `buildFooter` component that returns a footer

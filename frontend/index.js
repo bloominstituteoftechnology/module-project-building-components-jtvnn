@@ -88,7 +88,46 @@ function moduleProject3() {
 
   function buildFooter(footerData) {
     //  ✨ do your magic here
-    return document.createElement('footer')
+    const footer = document.createElement('footer');
+
+    let companyInfo = document.createElement('div');
+    companyInfo.classList.add('company-info');
+
+    let companyName = document.createElement('p');
+    companyName.classList.add('company-name');
+    companyName.textContent = footerData.companyName;
+
+    let address = document.createElement('p');
+    address.classList.add('address');
+    address.textContent = footerData.address;
+
+    let email = document.createElement('p');
+    email.classList.add('contact-email');
+    email.innerHTML = `Email: <a href="mailto:${footerData.contactEmail}"> ${footerData.contactEmail}</a>`
+
+    companyInfo.appendChild(companyName);
+    companyInfo.appendChild(address);
+    companyInfo.appendChild(email);
+
+    let social = document.createElement('div');
+    social.classList.add('social-media');
+
+    for (let platform in footerData.socialMedia) {
+      let socialLink = document.createElement('a');
+      socialLink.href = footerData.socialMedia[platform];
+      socialLink.textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+      social.appendChild(socialLink);
+    }
+
+    let year = new Date().getFullYear();
+    let copyright = document.createElement('div');
+    copyright.textContent = `© ${footerData.companyName.toUpperCase()} ${year}`;
+    
+    footer.appendChild(companyInfo);
+    footer.appendChild(social);
+    footer.appendChild(copyright);
+
+    return footer;
   }
 
   // ❗ DOM creation using your `buildFooter` component (do not change):
